@@ -16,47 +16,49 @@ import io.swagger.v3.oas.models.responses.ApiResponses;
 public class SwaggerConfig {
 
 	@Bean
-	OpenAPI springBlogPessoalOpenAPI() {
-		return new OpenAPI()
-				.info(new Info()
-						.title("Projeto Blog Pessoal")
-						.description("Projeto Pessoal -- Desenvolvido pela Generation Brasil")
-						.version("versao0.0.1")
-						.license(new License()
-								.name("Generation Brasil")
-								.url("https://brazil.generation.org/"))
-						.contact(new Contact()
-								.name("Generation Brasil")
-								.url("https://brazil.generation.org/")
-								.email("contatogeneration@generation.org")))
-				.externalDocs(new ExternalDocumentation()
-						.description("GitHub")
-						.url("https://github.com/conteudoGeneration/"));
-	}
-	
+    OpenAPI springBlogPessoalOpenAPI() {
+        return new OpenAPI()
+            .info(new Info()
+                .title("Projeto Blog Pessoal")
+                .description("Projeto Blog Pessoal - Generation Brasil")
+                .version("v0.0.1")
+                .license(new License()
+                    .name("Generation Brasil")
+                    .url("https://brazil.generation.org/"))
+                .contact(new Contact()
+                    .name("Generation Brasil")
+                    .url("https://github.com/conteudoGeneration")
+                    .email("conteudogeneration@generation.org")))
+            .externalDocs(new ExternalDocumentation()
+                .description("Github")
+                .url("https://github.com/conteudoGeneration/"));
+    }
+
+
 	@Bean
-	OpenApiCustomizer customerGlobalHeaderOpenApiCustomizer() {
+	public OpenApiCustomizer customerGlobalHeaderOpenApiCustomiser() {
+
 		return openApi -> {
-			openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations()
-			.forEach(operation -> {
-				
+			openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations().forEach(operation -> {
+
 				ApiResponses apiResponses = operation.getResponses();
-				
-				apiResponses.addApiResponse("200",createApiResponse("Sucesso"));
-				apiResponses.addApiResponse("201",createApiResponse("Objeto já persistido"));
-				apiResponses.addApiResponse("204",createApiResponse("Objeto Excluído"));
-				apiResponses.addApiResponse("400",createApiResponse("Erro no envio da requisição"));
-				apiResponses.addApiResponse("401",createApiResponse("Acesso não autorizado"));
-				apiResponses.addApiResponse("403",createApiResponse("Acesso proibido"));
-				apiResponses.addApiResponse("404",createApiResponse("Objeto não foi encontrado"));
-				apiResponses.addApiResponse("500",createApiResponse("Erro na compilação"));
+
+				apiResponses.addApiResponse("200", createApiResponse("Sucesso!"));
+				apiResponses.addApiResponse("201", createApiResponse("Objeto Persistido!"));
+				apiResponses.addApiResponse("204", createApiResponse("Objeto Excluído!"));
+				apiResponses.addApiResponse("400", createApiResponse("Erro na Requisição!"));
+				apiResponses.addApiResponse("401", createApiResponse("Acesso Não Autorizado!"));
+				apiResponses.addApiResponse("403", createApiResponse("Acesso Proibido!"));
+				apiResponses.addApiResponse("404", createApiResponse("Objeto Não Encontrado!"));
+				apiResponses.addApiResponse("500", createApiResponse("Erro na Aplicação!"));
+
 			}));
 		};
 	}
 
 	private ApiResponse createApiResponse(String message) {
-		
+
 		return new ApiResponse().description(message);
+
 	}
-	
 }
